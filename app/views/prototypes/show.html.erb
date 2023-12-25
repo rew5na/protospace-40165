@@ -1,0 +1,61 @@
+<main class="main">
+  <div class="inner">
+    <div class="prototype__wrapper">
+      <p class="prototype__hedding">
+        <%= @prototype.title %>
+      </p>
+      <% if user_signed_in? && current_user == @prototype.user %>
+        <div class="prototype__manage">
+          <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %><br/>
+          <%= link_to "削除する", prototype_path(@prototype), class: :prototype__btn, data: { turbo_method: :delete } %>
+
+        </div>
+        <div class = "prototype__image">
+          <%= link_to image_tag(@prototype.image.variant(resize: '300x300')), prototype_path(@prototype) %>
+        </div>
+      <% else %>
+        <div class="prototype__image">
+          <%= link_to image_tag(@prototype.image.variant(resize: '300x300')), prototype_path(@prototype) %>
+        </div>
+        <div class="prototype__body">
+          <div class="prototype__detail">
+            <p class="detail__title">キャッチコピー</p>
+            <p class="detail__message">
+              <%= @prototype.catch_copy %>
+            </p>
+          </div>
+          <div class="prototype__detail">
+            <p class="detail__title"></p>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="prototype__comments">
+      <% if current_user %>
+        <%= form_with model: Comment.new, url: prototype_comments_path(@prototype), local: true do |f| %>
+          <div class="field">
+            <%= f.label :content, "コメント" %><br>
+            <%= f.text_field :content, id: "comment_content" %>
+          </div>
+          <div class="actions">
+            <%= f.submit "送信する", class: :form__btn %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>コメント投稿はログインが必要です。</p>
+      <% end %>
+      <ul class="comments_lists">
+        <%# 投稿に紐づくコメントを一覧する処理を記述する %>
+        <% @prototype.comments.each do |comment| %>
+          <li class="comments_list">
+            <%= comment.text %>
+            <%= link_to comment.user.name, user_path(comment.user), class: :comment_user %>
+          </li>
+        <% end %>
+        <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
+       
+      </ul>
+    </div>
+  </div>
+</div>
+</main>
