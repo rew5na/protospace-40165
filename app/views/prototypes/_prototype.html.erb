@@ -2,10 +2,10 @@
   <%= link_to image_tag(prototype.image.variant(resize: '250x250')), prototype_path(prototype), class: 'prototype-image' %>   
   <div class="card__body">
     <%= link_to prototype.title, root_path, class: :card__title %>
-    <%# <p class="card__summary">
+    <p class="card__summary">
       <%= prototype.catch_copy %>
-    <%# </p>  %>
-    <%= link_to "by #{prototype.user.name}", user_path(prototype.user), class: :card__user %>
+    </p> 
+    <%= link_to "by #{prototype.user.name}", user_path(prototype.user), class: :card__user　%>
 
   </div>
 </div>
