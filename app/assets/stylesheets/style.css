@@ -163,6 +163,10 @@ a {
 }
 
 /* 詳細ページ */
+.name{
+  display:flex;
+  justify-content: space-around;
+}
 .prototype__wrapper{
   min-height: calc(100vh - 161px);
 }
