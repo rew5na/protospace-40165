@@ -4,6 +4,8 @@ class PrototypesController < ApplicationController
 
   def index
     @prototypes = Prototype.all.order("created_at DESC")
+    # @prototype = Prototype.find(params[:id])
+    # @prototype.user.name = prototype.user.name
   end
 
   def new
@@ -31,6 +33,7 @@ class PrototypesController < ApplicationController
     @prototype = Prototype.includes(:comments).find(params[:id])
     @comment = Comment.new
     @comments = @prototype.comments.includes(:user)
+    
   end
 
   def destroy
